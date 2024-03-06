@@ -1,11 +1,39 @@
-import "./App.css"
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import { useDispatch } from "react-redux";
+import authService from "./appwrite/auth";
+import { login, logout } from "./Store/authSlice";
+import { Outlet } from "react-router-dom";
+import { Header, Footer } from "./Components";
 
- const App = () => {
-  console.log(import.meta.env.VITE_APPWRITTE_URL);
-  return (
-    <div className="nav">this is a app</div>
-    
-  )
-}
+const App = () => {
+  const { loaging, setLoading } = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    authService
+      .getCuttentUser()
+      .then((userData) => {
+        if (userData) {
+          dispatch(login(userData));
+        } else {
+          dispatch(logout());
+        }
+      })
+      .finally(() => setLoading(false));
+  });
+
+  return !loaging ? (
+    <div className=" bg-gray-400 min-h-screen flex flex-wrap content-between">
+      <div className="w-full block">
+        <Header />
+        <main>
+          TODO: <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </div>
+  ) : null;
+};
 
 export default App;
