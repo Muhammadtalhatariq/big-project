@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth";
 import { login, logout } from "./Store/authSlice";
 import { Outlet } from "react-router-dom";
-import { Header, Footer } from "./Components";
+import { Header, Footer } from "./components";
 
 const App = () => {
   const { loaging, setLoading } = useState(true);
