@@ -2,16 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Container, PostCard } from "../components";
 import appwriteService from "../appwrite/config";
 
-
 const AllPost = () => {
-
-  const { posts, setPosts } = useState();
-
+  const { posts, setPosts } = useState([]);
   useEffect(() => {}, []);
-  
-  appwriteService.getposts([]).then((post) => {
-    if (post) {
-      setPosts(post.documents);
+  appwriteService.getposts([]).then((posts) => {
+    if (posts) {
+      setPosts(posts.documents);
     }
   });
 
@@ -19,7 +15,8 @@ const AllPost = () => {
     <div className="w-full py-8">
       <Container>
         <div className="flex flex-wrap">
-          {posts.map((post) => (
+          {posts.map((post) =>
+           (
             <div key={post.$id} className="p-2 w-1/4">
               <PostCard {...post} />
             </div>
