@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 import { Header, Footer } from "./components";
 
 const App = () => {
-  const { loading, setLoading } = useState(true);
+  const [loading, setLoading ] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,8 +20,8 @@ const App = () => {
           dispatch(logout());
         }
       })
-      .finally(() => setLoading(false));
-  });
+      .finally(() => setLoading (false));
+  }, []);
 
   return !loading ? (
     <div className=" bg-gray-400 min-h-screen flex flex-wrap content-between">
